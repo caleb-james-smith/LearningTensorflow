@@ -7,6 +7,7 @@ from tensorflow.keras.optimizers import Adam
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import os
 
 # load data
 (x_train, _), (_, _) = mnist.load_data()
@@ -16,8 +17,7 @@ MID_POINT   = 255.0 / 2.0           # midpoint of pixel values used for normaliz
 PIX_LENGTH  = 28                    # images are 28 x 28 pixels
 GEN_LENGTH  = int(PIX_LENGTH/4)     # length used for generator
 NUM_PIXELS  = PIX_LENGTH ** 2       # total number of pixels in image
-#NUM_EPOCHS  = 50
-NUM_EPOCHS  = 1
+NUM_EPOCHS  = 100
 BATCH_SIZE  = 256
 HALF_BATCH  = int(BATCH_SIZE / 2)
 NOISE_DIM   = 100                   # dimension of noise vector
@@ -108,6 +108,11 @@ def save_imgs(epoch, num_examples=100):
 
 # training
 def train(num_epochs):
+    # make directories if they do not exist
+    dir_list = ["images", "models"]
+    for d in dir_list:
+        if not os.path.exists(d):
+            os.makedirs(d)
     # loop over epochs
     for epoch in range(1, num_epochs + 1):
         discriminator_loss_epoch = 0.0
@@ -143,7 +148,7 @@ def train(num_epochs):
     
     
         print("epoch: {0}, discriminator loss: {1}, generator loss: {2}".format(epoch, discriminator_loss_epoch / BATCH_COUNT, generator_loss_epoch / BATCH_COUNT))
-        if (epoch % 10 == 0):
+        if (epoch % 5 == 0):
             generator.save('models/dcgan_generator_{0:03d}.h5'.format(epoch))
             save_imgs(epoch)
 

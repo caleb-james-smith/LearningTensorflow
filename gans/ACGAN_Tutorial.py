@@ -6,6 +6,7 @@ from tensorflow.keras.optimizers import Adam
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import os
 
 # load data
 (x_train, y_train), (_, _) = mnist.load_data()
@@ -16,8 +17,7 @@ PIX_LENGTH  = 28                    # images are 28 x 28 pixels
 GEN_LENGTH  = int(PIX_LENGTH/4)     # length used for generator
 NUM_PIXELS  = PIX_LENGTH ** 2       # total number of pixels in image
 NUM_CLASSES = 10
-#NUM_EPOCHS  = 50
-NUM_EPOCHS  = 1
+NUM_EPOCHS  = 100
 BATCH_SIZE  = 256
 HALF_BATCH  = int(BATCH_SIZE / 2)
 NOISE_DIM   = 100                   # dimension of noise vector
@@ -96,11 +96,16 @@ def save_imgs(epoch, num_examples=100):
         plt.imshow(generated_imgs[i], interpolation='nearest', cmap='gray')
         plt.axis('off')
     plt.tight_layout()
-    plt.save_fig('images/acgan_generated_image_epoch_{0:03d}.png'.format(epoch))
+    plt.savefig('images/acgan_generated_epoch_{0:03d}.png'.format(epoch))
 
 
 # training
 def train(num_epochs):
+    # make directories if they do not exist
+    dir_list = ["images", "models"]
+    for d in dir_list:
+        if not os.path.exists(d):
+            os.makedirs(d)
     for epoch in range(1, num_epochs + 1):
         discriminator_loss_epoch = 0.0
         generator_loss_epoch     = 0.0
@@ -134,8 +139,8 @@ def train(num_epochs):
             generator_loss_epoch += np.mean(generator_loss_batch)
             
         print("epoch: {0}, discriminator loss: {1}, generator loss: {2}".format(epoch, discriminator_loss_epoch / BATCH_COUNT, generator_loss_epoch / BATCH_COUNT))
-        if (epoch % 10 == 0):
-            generator.save('models/dcgan_generator_{0:03d}.h5'.format(epoch))
+        if (epoch % 5 == 0):
+            generator.save('models/acgan_generator_{0:03d}.h5'.format(epoch))
             save_imgs(epoch)
 
 
