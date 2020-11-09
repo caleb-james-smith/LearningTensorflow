@@ -24,7 +24,6 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 MID_POINT   = 255.0 / 2.0           # midpoint of pixel values used for normalization
 PIX_LENGTH  = 28                    # images are 28 x 28 pixels
 NUM_PIXELS  = PIX_LENGTH ** 2       # total number of pixels in image
-#NUM_EPOCHS  = 50
 NUM_EPOCHS  = 20
 BATCH_SIZE  = 256
 HALF_BATCH  = int(BATCH_SIZE / 2)
@@ -94,6 +93,11 @@ def save_imgs(epoch, num_examples=100):
 
 # training
 def train(num_epochs):
+    # make directories if they do not exist
+    dir_list = ["images", "models"]
+    for d in dir_list:
+        if not os.path.exists(d):
+            os.makedirs(d)
     # loop over epochs
     for epoch in range(1, num_epochs + 1):
         discriminator_loss_epoch = 0.0
@@ -136,6 +140,5 @@ def train(num_epochs):
 
 if __name__ == "__main__":
     train(NUM_EPOCHS)
-
 
 
