@@ -1,0 +1,30 @@
+body {
+  background-color: #BBDEFB;
+}
+h1 {
+  color: black;
+  font-family: verdana;
+  font-size: 300%;
+}
+p {
+  color: black;
+  font-family: courier;
+  font-size: 150%;
+}
+table {
+  font-family: arial, sans-serif;
+  font-size: 125%;
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 1px solid black;
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(odd) {
+  background-color: #F5F5F5;
+}
+tr:nth-child(even) {
+  background-color: #E0E0E0;
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <title>Image Classifier</title>
+</head>
+
+<body>
+    <h1>Upload an Image</h1>
+    <form method=POST enctype="multipart/form-data" action="{{ url_for('upload') }}">
+        <input type=file name=photo>
+        <input type=submit>
+    </form>
+</body>
+
+</html>
