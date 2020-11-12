@@ -1,5 +1,5 @@
 body {
-  background-color: #90CAF9;
+  background-color: #BBDEFB;
 }
 h1 {
   color: black;
@@ -9,10 +9,11 @@ h1 {
 p {
   color: black;
   font-family: courier;
-  font-size: 160%;
+  font-size: 150%;
 }
 table {
   font-family: arial, sans-serif;
+  font-size: 125%;
   border-collapse: collapse;
   width: 100%;
 }
