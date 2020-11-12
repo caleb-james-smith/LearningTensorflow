@@ -1,14 +1,20 @@
 # main.py
 import uuid
 import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input, decode_predictions
 from tensorflow.keras.preprocessing import image
 from flask import Flask, render_template, request, redirect, url_for
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
+NOISE_DIM = 100
 
-# image classifier from keras
+# Auxiliary Classifier Generative Adversarial Network (ACGAN) trained on MNIST dataset of handwritten digits 0-9
+generator = load_model('static/models/acgan_generator_100.h5')
+
+# ResNet image classifier from keras trained on ImageNet
 model = ResNet50(weights='imagenet')
 
 # configure location to save images
@@ -17,11 +23,16 @@ photos = UploadSet(name='photos', extensions=IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/img'
 configure_uploads(app, upload_sets=photos)
 
-# get: loading website
-# post: uploading to website
+# GET: loading website (read)
+# POST: sending data to webiste (write)
 
-# default url: upload an image
-@app.route('/', methods=['GET', 'POST'])
+# main page
+@app.route('/')
+def main():
+    return render_template('main.html')
+
+# upload an image
+@app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST' and 'photo' in request.files:
         # save image using a unique id for filename and redirect to view image
@@ -30,7 +41,7 @@ def upload():
     # render page
     return render_template('upload.html')
 
-# show specific image
+# show uploaded image and classification
 @app.route('/photo/<filename>')
 def show(filename):
     # load image, resize, convert to numpy array
