@@ -19,9 +19,28 @@ configure_uploads(app, upload_sets=photos)
 # get: loading website
 # post: uploading to website
 
-# default url
+# default url: upload an image
 @app.route('/', methods=['GET', 'POST'])
 def upload():
-    if request.method == 'POST':
-        pass
+    if request.method == 'POST' and 'photo' in request.files:
+        # save image using a unique id for filename and redirect to view image
+        filename = photos.save(request.files['photo'], name=uuid.uuid4().hex[:8] + '.')
+        return redirect(url_for('show', filename=filename))
+    # render page
     return render_template('upload.html')
+
+# show specific image
+@app.route('/photo/<filename>')
+def show(filename):
+    # load image, resize, convert to numpy array
+    img_path = app.config['UPLOADED_PHOTOS_DEST'] + '/' + filename
+    img = image.load_img(img_path, target_size=(224, 224))
+    x = image.img_to_array(img)
+    x = x[np.newaxis, ...]
+    x = preprocess_input(x)
+    # predict
+    y_pred = model.predict(x)
+    predictions = decode_predictions(y_pred, top=5)[0]
+    url = photos.url(filename)
+    # render page
+    return render_template('view_results.html', filename=filename, url=url, predictions=predictions)
