@@ -12,6 +12,7 @@ app = Flask(__name__)
 model = ResNet50(weights='imagenet')
 
 # configure location to save images
+# this path needs to exist
 photos = UploadSet(name='photos', extensions=IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/img'
 configure_uploads(app, upload_sets=photos)
@@ -42,5 +43,11 @@ def show(filename):
     y_pred = model.predict(x)
     predictions = decode_predictions(y_pred, top=5)[0]
     url = photos.url(filename)
+    # get mostly likely prediction
+    indices = np.argmax(predictions, axis=0)
+    max_index = indices[2]
+    max_class = predictions[max_index][1]
+    max_prob  = "{:.1f}".format(100 * predictions[max_index][2])
+    #print("max_index: {0}, max_class: {1}, max_prob: {2}".format(max_index, max_class, max_prob))
     # render page
-    return render_template('view_results.html', filename=filename, url=url, predictions=predictions)
+    return render_template('view_results.html', filename=filename, url=url, predictions=predictions, max_class=max_class, max_prob=max_prob)
