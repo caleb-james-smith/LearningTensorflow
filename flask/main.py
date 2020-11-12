@@ -48,6 +48,10 @@ def show(filename):
     max_index = indices[2]
     max_class = predictions[max_index][1]
     max_prob  = "{:.1f}".format(100 * predictions[max_index][2])
-    #print("max_index: {0}, max_class: {1}, max_prob: {2}".format(max_index, max_class, max_prob))
+    for i in range(len(predictions)):
+        print("prediction {0}: {1}, {2}".format(i, predictions[i][1], predictions[i][2]))
+    print("indices: {0}".format(indices))
+    print("max_index: {0}, max_class: {1}, max_prob: {2}".format(max_index, max_class, max_prob))
+
     # render page
     return render_template('view_results.html', filename=filename, url=url, predictions=predictions, max_class=max_class, max_prob=max_prob)
