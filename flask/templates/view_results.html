@@ -1,6 +1,8 @@
+<!DOCTYPE html>
 <html>
 
 <head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
     <title>Classification Results</title>
 </head>
 
@@ -13,18 +15,16 @@
     <p></p>
 
     <table>
-        <thead>
+        <tr>
             <th>Class</th>
             <th>Probability</th>
-        </thead>
-        <tbody>
-            {% for prediction in predictions %}
-                <tr>
-                    <td>{{ prediction[1] }}</td>
-                    <td>{{ prediction[2] }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
+        </tr>
+        {% for prediction in predictions %}
+            <tr>
+                <td>{{ prediction[1] }}</td>
+                <td>{{ prediction[2] }}</td>
+            </tr>
+        {% endfor %}
     </table>
 
 </body>
