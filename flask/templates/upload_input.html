@@ -7,10 +7,10 @@
 </head>
 
 <body>
-    <h1>Upload an Image</h1>
+    <h1>Classify an Image</h1>
     <form method=POST enctype="multipart/form-data" action="{{ url_for('upload') }}">
-        <input type=file name=photo>
-        <input type=submit>
+        <input type=file name=photo class=button>
+        <input type=submit class=button>
     </form>
 </body>
 

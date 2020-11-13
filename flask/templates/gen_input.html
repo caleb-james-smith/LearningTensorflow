@@ -7,10 +7,10 @@
 </head>
 
 <body>
-    <h1>Image Generator</h1>
+    <h1>Generate an Image</h1>
     <form method=POST enctype="multipart/form-data" action="{{ url_for('generate') }}">
         <input type="number" name="value" min="0" max="9">
-        <input type="submit" name="submit" value="Generate Image">
+        <input type="submit" name="submit" class=button value="Generate image">
     </form>
 </body>
 
