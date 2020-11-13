@@ -7,15 +7,19 @@
 </head>
 
 <body>
+
     <h1>Welcome</h1>
-    <p>Classify images</p>
-    <form action="http://127.0.0.1:5000/upload">
-        <input type="submit" value="Go" />
+
+    <h2>Classify images</h2>
+    <form method=GET action="{{ url_for('upload') }}">
+        <input type="submit" class="button" value="Go classify">
     </form>
-    <p>Generate digits</p>
-    <form action="http://127.0.0.1:5000/generate">
-        <input type="submit" value="Go" />
+
+    <h2>Generate digits</h2>
+    <form method=GET action="{{ url_for('generate') }}">
+        <input type="submit" class="button" value="Go generate">
     </form>
+
 </body>
 
 </html>
