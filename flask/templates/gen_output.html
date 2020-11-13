@@ -7,6 +7,9 @@
 </head>
 
 <body>
+    <form method=GET action="{{ url_for('main') }}">
+        <input type="submit" class="button" value="Home">
+    </form>
     <h1>Generated Image</h1>
     <img src="{{ url }}">
 </body>

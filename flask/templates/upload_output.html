@@ -7,12 +7,15 @@
 </head>
 
 <body>
+    <form method=GET action="{{ url_for('main') }}">
+        <input type="submit" class="button" value="Home">
+    </form>
     <h1>Classification Results</h1>
 
     <img src="{{ url }}">
     <p>File name: {{ filename }}</p>
     <p>Prediction: {{ max_class }} with {{ max_prob }}% certainty</p>
-    
+
     <table>
         <tr>
             <th>Class</th>
