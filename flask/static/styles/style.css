@@ -1,13 +1,18 @@
 body {
-  background-color: #BBDEFB;
+  background-color: #0D47A1;
 }
 h1 {
-  color: black;
+  color: #F5F5F5;
   font-family: verdana;
   font-size: 300%;
 }
+h2 {
+  color: #F5F5F5;
+  font-family: verdana;
+  font-size: 200%;
+}
 p {
-  color: black;
+  color: #F5F5F5;
   font-family: courier;
   font-size: 150%;
 }
@@ -27,4 +32,17 @@ tr:nth-child(odd) {
 }
 tr:nth-child(even) {
   background-color: #E0E0E0;
+}
+.button {
+  background-color: #1E88E5;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: courier;
+  font-size: 150%;
+  margin: 4px 2px;
+  cursor: pointer;
 }

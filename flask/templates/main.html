@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <title>Main Page</title>
+</head>
+
+<body>
+    <form method=GET action="{{ url_for('main') }}">
+        <input type="submit" class="button" value="Home">
+    </form>
+
+    <h1>Machine Learning Examples</h1>
+
+    <h2>Classify images</h2>
+    <form method=GET action="{{ url_for('upload') }}">
+        <input type="submit" class="button" value="Go classify">
+    </form>
+
+    <h2>Generate images</h2>
+    <form method=GET action="{{ url_for('generate') }}">
+        <input type="submit" class="button" value="Go generate">
+    </form>
+
+</body>
+
+</html>
