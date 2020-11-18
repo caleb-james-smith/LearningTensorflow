@@ -23,6 +23,7 @@ export FLASK_DEBUG=1
 
 Running Flask:
 ```
+cd flask
 flask run
 ```
 
