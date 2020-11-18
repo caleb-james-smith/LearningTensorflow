@@ -4,7 +4,9 @@
 ## Running Flask Applications
 
 Documentation: https://flask.palletsprojects.com/
+
 Installation: https://flask.palletsprojects.com/en/1.1.x/installation/#installation
+
 Quickstart: https://flask.palletsprojects.com/quickstart/
 
 Installing Flask:
