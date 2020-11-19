@@ -34,18 +34,19 @@
             </li>
         </ul>
     </div>
+    <div class="wrapper">
+        <h1>Machine Learning Examples</h1>
 
-    <h1>Machine Learning Examples</h1>
+        <h2>Classify images</h2>
+        <form method=GET action="{{ url_for('upload') }}">
+            <input type="submit" class="button" value="Go classify">
+        </form>
 
-    <h2>Classify images</h2>
-    <form method=GET action="{{ url_for('upload') }}">
-        <input type="submit" class="button" value="Go classify">
-    </form>
-
-    <h2>Generate images</h2>
-    <form method=GET action="{{ url_for('generate') }}">
-        <input type="submit" class="button" value="Go generate">
-    </form>
+        <h2>Generate images</h2>
+        <form method=GET action="{{ url_for('generate') }}">
+            <input type="submit" class="button" value="Go generate">
+        </form>
+    </div>
 
 </body>
 

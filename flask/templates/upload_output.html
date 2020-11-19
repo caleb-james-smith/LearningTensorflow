@@ -31,26 +31,26 @@
             </li>
         </ul>
     </div>
-    
-    <h1>Classification Results</h1>
+    <div class="wrapper">
+        <h1>Classification Results</h1>
 
-    <img src="{{ url }}">
-    <p>File name: {{ filename }}</p>
-    <p>Prediction: {{ max_class }} with {{ max_prob }}% certainty</p>
+        <img src="{{ url }}">
+        <p>File name: {{ filename }}</p>
+        <p>Prediction: {{ max_class }} with {{ max_prob }}% certainty</p>
 
-    <table>
-        <tr>
-            <th>Class</th>
-            <th>Probability</th>
-        </tr>
-        {% for prediction in predictions %}
+        <table>
             <tr>
-                <td>{{ prediction[1] }}</td>
-                <td>{{ prediction[2] }}</td>
+                <th>Class</th>
+                <th>Probability</th>
             </tr>
-        {% endfor %}
-    </table>
-
+            {% for prediction in predictions %}
+                <tr>
+                    <td>{{ prediction[1] }}</td>
+                    <td>{{ prediction[2] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 
 </html>

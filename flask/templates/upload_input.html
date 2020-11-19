@@ -31,12 +31,13 @@
             </li>
         </ul>
     </div>
-    
-    <h1>Classify an Image</h1>
-    <form method=POST enctype="multipart/form-data" action="{{ url_for('upload') }}">
-        <input type=file name=photo class=button>
-        <input type=submit class=button>
-    </form>
+    <div class="wrapper">
+        <h1>Classify an Image</h1>
+            <form method=POST enctype="multipart/form-data" action="{{ url_for('upload') }}">
+                <input type=file name=photo class=button>
+                <input type=submit class=button>
+            </form>
+    </div>
 </body>
 
 </html>
