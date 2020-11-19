@@ -1,4 +1,5 @@
 # main.py
+import os
 import uuid
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,6 +9,18 @@ from tensorflow.keras.preprocessing import image
 from flask import Flask, render_template, request, redirect, url_for
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
+# problem on mac regarding OpenMP:
+# https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
+# https://github.com/dmlc/xgboost/issues/1715
+# fix:
+# As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results.
+# For more information, please see http://openmp.llvm.org/
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
+# fix python crash by setting matplotlib to a non-interactive backend
+# https://github.com/matplotlib/matplotlib/issues/14304
+plt.switch_backend('Agg')
+
 app = Flask(__name__, static_url_path='/static')
 NOISE_DIM = 100
 GENERATE_IMG_PATH = 'static/img_generate'
@@ -15,7 +28,6 @@ UPLOAD_IMG_PATH = 'static/img_upload'
 
 # Auxiliary Classifier Generative Adversarial Network (ACGAN) trained on MNIST dataset of handwritten digits 0-9
 generator = load_model('static/models/acgan_generator_100.h5')
-
 
 # ResNet image classifier from keras trained on ImageNet
 model = ResNet50(weights='imagenet')
@@ -41,6 +53,7 @@ def generate():
         label = request.form['value']
         if not label:
             label = 0
+        label = int(label)
         noise = np.random.normal(0, 1, size=[1, NOISE_DIM])
         label = np.array([[label]])
         generated_img = generator.predict([noise, label])
@@ -54,7 +67,7 @@ def generate():
 
 # generated image
 @app.route('/gen_photo/<filename>')
-def show_generate():
+def show_generate(filename):
     filepath = '/' + GENERATE_IMG_PATH + '/' + filename
     return render_template('gen_output.html', url=filepath)
 
@@ -71,6 +84,7 @@ def upload():
 # show uploaded image and classification
 @app.route('/upload_photo/<filename>')
 def show_upload(filename):
+    debug = False
     # load image, resize, convert to numpy array
     img_path = app.config['UPLOADED_PHOTOS_DEST'] + '/' + filename
     img = image.load_img(img_path, target_size=(224, 224))
@@ -86,10 +100,11 @@ def show_upload(filename):
     max_index = indices[2]
     max_class = predictions[max_index][1]
     max_prob  = "{:.1f}".format(100 * predictions[max_index][2])
-    for i in range(len(predictions)):
-        print("prediction {0}: {1}, {2}".format(i, predictions[i][1], predictions[i][2]))
-    print("indices: {0}".format(indices))
-    print("max_index: {0}, max_class: {1}, max_prob: {2}".format(max_index, max_class, max_prob))
+    if debug:
+        for i in range(len(predictions)):
+            print("prediction {0}: {1}, {2}".format(i, predictions[i][1], predictions[i][2]))
+        print("indices: {0}".format(indices))
+        print("max_index: {0}, max_class: {1}, max_prob: {2}".format(max_index, max_class, max_prob))
 
     # render page
     return render_template('upload_output.html', filename=filename, url=url, predictions=predictions, max_class=max_class, max_prob=max_prob)
