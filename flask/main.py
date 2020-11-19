@@ -46,6 +46,11 @@ configure_uploads(app, upload_sets=photos)
 def main():
     return render_template('main.html')
 
+#about page
+@app.route('/')
+def about():
+    return render_template('main.html')
+
 # choose digit to generate
 @app.route('/generate', methods=['GET', 'POST'])
 def generate():
