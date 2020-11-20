@@ -7,11 +7,34 @@
 </head>
 
 <body>
-    <form method=GET action="{{ url_for('main') }}">
-        <input type="submit" class="button" value="Home">
-    </form>
-    <h1>Generated Image</h1>
-    <img src="{{ url }}">
+    <div class="nav">
+        <ul>
+            <li>
+                <form method=GET action="{{ url_for('main') }}">
+                    <input type="submit" class="button" value="Home">
+                </form>
+            </li>
+            <li>
+                <form method=GET action="{{ url_for('about') }}">
+                    <input type="submit" class="button" value="About">
+                </form>
+            </li>
+            <li>
+                <form method=GET action="{{ url_for('upload') }}">
+                    <input type="submit" class="button" value="Classify">
+                </form>
+            </li>
+            <li>
+                <form method=GET action="{{ url_for('generate') }}">
+                    <input type="submit" class="button" value="Generate">
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="wrapper">
+        <h1>Generated Image</h1>
+        <img src="{{ url }}">
+    </div>
 </body>
 
 </html>
