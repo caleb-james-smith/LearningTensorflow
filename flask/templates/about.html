@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Machine Learning</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Machine learning with tensorflow." />
+    <link rel="icon" href="{{ url_for('static',filename='icons/knight_color.ico') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+</head>
+
+<body>
+    <div class="nav">
+        <ul>
+            <li>
+                <form method=GET action="{{ url_for('main') }}">
+                    <input type="submit" class="button" value="Home">
+                </form>
+            </li>
+            <li>
+                <form method=GET action="{{ url_for('about') }}">
+                    <input type="submit" class="button" value="About">
+                </form>
+            </li>
+            <li>
+                <form method=GET action="{{ url_for('upload') }}">
+                    <input type="submit" class="button" value="Classify">
+                </form>
+            </li>
+            <li>
+                <form method=GET action="{{ url_for('generate') }}">
+                    <input type="submit" class="button" value="Generate">
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="wrapper">
+        <h1>Machine Learning Examples</h1>
+        <p>
+            This site has some machine learning examples. Machine learning continues to find new applications in a variety of problem spaces. Image classification has been greatly improved by convolutional neural networks (CNN). Image generation can be performed using Auxilary Classifier Generative Adversarial Networks (ACGAN).
+        </p>
+    </div>
+
+</body>
+
+</html>
