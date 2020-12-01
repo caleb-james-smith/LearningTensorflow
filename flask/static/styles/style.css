@@ -1,20 +1,18 @@
 body {
   background-color: #0D47A1;
+  font-family: 'Open Sans', sans-serif;
 }
 h1 {
   color: #F5F5F5;
-  font-family: verdana;
   font-size: 300%;
 }
 h2 {
   color: #F5F5F5;
-  font-family: verdana;
-  font-size: 200%;
+  font-size: 250%;
 }
 p {
   color: #F5F5F5;
-  font-family: courier;
-  font-size: 150%;
+  font-size: 200%;
 }
 table {
   font-family: arial, sans-serif;
@@ -62,7 +60,7 @@ tr:nth-child(even) {
   text-decoration: none;
   display: inline-block;
   font-family: courier;
-  font-size: 150%;
+  font-size: 200%;
   margin: 4px 2px;
   cursor: pointer;
   transition: background-color 0.5s;
