@@ -53,9 +53,9 @@ def sample_from_model(model, sample_length=100):
         prediction = np.argmax(model.predict(x_pred))
         generated_text += idx_to_char[prediction]
         # remove first character from x_pred and add new character to x_pred
-        activation = np.zeros((1, 1, vocab_size), dypte=np.bool)
+        activation = np.zeros((1, 1, vocab_size), dtype=np.bool)
         activation[0, 0, prediction] = 1
-        x_pred = np.concatenate((xpred[:, 1:, :], activation), axis=1)
+        x_pred = np.concatenate((x_pred[:, 1:, :], activation), axis=1)
 
     return generated_text
 
