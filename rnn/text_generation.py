@@ -5,7 +5,10 @@ from tensorflow.keras.layers import LSTM, Dense, Activation
 from tensorflow.keras.callbacks import Callback
 from random import randint
 
-with open('sonnets.txt', 'r') as in_file:
+#data_file = 'sonnets.txt'
+data_file = 'kernel.c'
+
+with open(data_file, 'r') as in_file:
     corpus = in_file.read()
 
 # get unique characters
