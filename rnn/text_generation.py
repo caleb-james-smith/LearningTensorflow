@@ -39,12 +39,44 @@ for i, sentence in enumerate(sentences):
         x[i, j, char_to_idx[char]] = 1
     y[i, char_to_idx[next_chars[i]]] = 1
 
+
+def sample_from_model(model, sample_length=100):
+    # starting seed
+    seed = randint(0, data_size - sentence_length)
+    seed_sentence = corpus[seed: seed + sentence_length]
+    x_pred = np.zeros((1, sentence_length, vocab_size), dtype=np.bool)
+    for j, char in enumerate(seed_sentence):
+        x_pred[0, j, char_to_idx[char]] = 1
+    # generate text
+    generated_text = ''
+    for i in range(sample_length):
+        prediction = np.argmax(model.predict(x_pred))
+        generated_text += idx_to_char[prediction]
+        # remove first character from x_pred and add new character to x_pred
+        activation = np.zeros((1, 1, vocab_size), dypte=np.bool)
+        activation[0, 0, prediction] = 1
+        x_pred = np.concatenate((xpred[:, 1:, :], activation), axis=1)
+
+    return generated_text
+
+def show_generated_text(generated_text):
+    print('\nGenerated Text')
+    print('-' * 32)
+    print(generated_text)
+
+class SamplerCallback(Callback):
+    def on_epoch_end(self, epoch, logs):
+        generated_text = sample_from_model(self.model)
+        show_generated_text(generated_text)
+
 # create model
+sampler_callback = SamplerCallback()
 model = Sequential()
 model.add(LSTM(256, input_shape=(sentence_length, vocab_size)))
 model.add(Dense(vocab_size))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
-model.fit(x, y, epochs=2, batch_size=256)
+model.fit(x, y, epochs=2, batch_size=256, callbacks=[sampler_callback])
 
-
+generated_text = sample_from_model(model, sample_length=1000)
+show_generated_text(generated_text)
