@@ -1,9 +1,23 @@
 # text_generation.py
 import numpy as np
+import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Activation
 from tensorflow.keras.callbacks import Callback
 from random import randint
+
+# manage GPU memory
+def gpu_allow_mem_grow():
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    print("GPU list: {0}".format(gpus))
+    if gpus:
+        try:
+            for gpu in gpus:
+                tf.config.experimental.set_memory_growth(gpu, True)
+        except RuntimeError as e:
+            print("ERROR: gpu_mem_grow failed: ",e)
+
+gpu_allow_mem_grow()
 
 data_file = 'sonnets.txt'
 #data_file = 'kernel.c'
