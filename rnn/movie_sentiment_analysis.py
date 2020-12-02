@@ -46,7 +46,7 @@ print(model.summary())
 
 tensorboard = tensorflow.keras.callbacks.TensorBoard(log_dir='sentiment_logs')
 
-model.fit(x_train, y_train, epochs=2, batch_size=256, validation_split=0.2, callbacks=[tensorboard])
+model.fit(x_train, y_train, epochs=20, batch_size=256, validation_split=0.2, callbacks=[tensorboard])
 
 score = model.evaluate(x_test, y_test)
 print("Accuracy: {0:.4f}".format(score[1]))
