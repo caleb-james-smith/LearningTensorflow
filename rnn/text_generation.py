@@ -5,8 +5,8 @@ from tensorflow.keras.layers import LSTM, Dense, Activation
 from tensorflow.keras.callbacks import Callback
 from random import randint
 
-#data_file = 'sonnets.txt'
-data_file = 'kernel.c'
+data_file = 'sonnets.txt'
+#data_file = 'kernel.c'
 
 with open(data_file, 'r') as in_file:
     corpus = in_file.read()
@@ -79,7 +79,8 @@ model.add(LSTM(256, input_shape=(sentence_length, vocab_size)))
 model.add(Dense(vocab_size))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
-model.fit(x, y, epochs=2, batch_size=256, callbacks=[sampler_callback])
+model.fit(x, y, epochs=20, batch_size=256, callbacks=[sampler_callback])
 
 generated_text = sample_from_model(model, sample_length=1000)
 show_generated_text(generated_text)
+
