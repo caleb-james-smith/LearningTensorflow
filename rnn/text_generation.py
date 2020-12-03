@@ -18,7 +18,8 @@ with open(data_file, 'r') as in_file:
     corpus = in_file.read()
 
 # get unique characters
-chars = list(set(corpus))
+# WARNING: sort list to maintain order; a set is unordered, and the order will change during different sessions (e.g. training vs. loading models)
+chars = sorted(list(set(corpus)))
 print("chars: {0}".format(chars))
 
 data_size, vocab_size = len(corpus), len(chars)
@@ -55,7 +56,7 @@ class SamplerCallback(Callback):
         show_generated_text(generated_text)
         # save model
         this_epoch = epoch + 1
-        if (this_epoch % 5 == 0):
+        if (this_epoch % 1 == 0):
             self.model.save("models/{0}_{1:03d}.h5".format(model_name, this_epoch))
 
 def train(num_epochs):
@@ -76,8 +77,8 @@ def generate(saved_model):
     generated_text = sample_from_model(model, 2000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
     show_generated_text(generated_text)
 
-train(num_epochs=30)
+#train(num_epochs=1)
 
-#saved_model = "models/dissertation_010.h5"
-#generate(saved_model)
+saved_model = "models/dissertation_001.h5"
+generate(saved_model)
 
