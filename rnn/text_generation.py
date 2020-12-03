@@ -5,18 +5,9 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Activation
 from tensorflow.keras.callbacks import Callback
 from random import randint
+from tools import gpu_allow_mem_grow, show_generated_text
 
 # manage GPU memory
-def gpu_allow_mem_grow():
-    gpus = tf.config.experimental.list_physical_devices('GPU')
-    print("GPU list: {0}".format(gpus))
-    if gpus:
-        try:
-            for gpu in gpus:
-                tf.config.experimental.set_memory_growth(gpu, True)
-        except RuntimeError as e:
-            print("ERROR: gpu_mem_grow failed: ",e)
-
 gpu_allow_mem_grow()
 
 model_name = "dissertation"
@@ -79,11 +70,6 @@ def sample_from_model(model, sample_length=100):
 
     return generated_text
 
-def show_generated_text(generated_text):
-    print('\nGenerated Text')
-    print('-' * 32)
-    print(generated_text)
-
 class SamplerCallback(Callback):
     def on_epoch_end(self, epoch, logs):
         # show generated text
@@ -102,7 +88,7 @@ model.add(Dense(vocab_size))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 #model.fit(x, y, epochs=20, batch_size=256, callbacks=[sampler_callback])
-model.fit(x, y, epochs=5, batch_size=256, callbacks=[sampler_callback])
+model.fit(x, y, epochs=1, batch_size=256, callbacks=[sampler_callback])
 
 generated_text = sample_from_model(model, sample_length=1000)
 show_generated_text(generated_text)
