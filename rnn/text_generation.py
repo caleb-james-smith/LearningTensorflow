@@ -19,6 +19,8 @@ def gpu_allow_mem_grow():
 
 gpu_allow_mem_grow()
 
+model_name = "dissertation"
+
 #data_file = 'data/sonnets.txt'
 #data_file = 'data/kernel.c'
 data_file = 'data/dissertation_zinv.tex'
@@ -84,8 +86,13 @@ def show_generated_text(generated_text):
 
 class SamplerCallback(Callback):
     def on_epoch_end(self, epoch, logs):
+        # show generated text
         generated_text = sample_from_model(self.model)
         show_generated_text(generated_text)
+        # save model
+        this_epoch = epoch + 1
+        if (this_epoch % 5 == 0):
+            self.model.save("models/{0}_{1:03d}.h5".format(model_name, this_epoch))
 
 # create model
 sampler_callback = SamplerCallback()
@@ -95,7 +102,7 @@ model.add(Dense(vocab_size))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 #model.fit(x, y, epochs=20, batch_size=256, callbacks=[sampler_callback])
-model.fit(x, y, epochs=20, batch_size=256, callbacks=[sampler_callback])
+model.fit(x, y, epochs=5, batch_size=256, callbacks=[sampler_callback])
 
 generated_text = sample_from_model(model, sample_length=1000)
 show_generated_text(generated_text)
