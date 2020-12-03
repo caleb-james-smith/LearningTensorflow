@@ -56,7 +56,7 @@ class SamplerCallback(Callback):
         show_generated_text(generated_text)
         # save model
         this_epoch = epoch + 1
-        if (this_epoch % 1 == 0):
+        if (this_epoch % 5 == 0):
             self.model.save("models/{0}_{1:03d}.h5".format(model_name, this_epoch))
 
 def train(num_epochs):
@@ -77,8 +77,8 @@ def generate(saved_model):
     generated_text = sample_from_model(model, 2000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
     show_generated_text(generated_text)
 
-#train(num_epochs=1)
+train(num_epochs=30)
 
-saved_model = "models/dissertation_001.h5"
-generate(saved_model)
+#saved_model = "models/dissertation_001.h5"
+#generate(saved_model)
 
