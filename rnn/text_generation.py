@@ -1,11 +1,9 @@
 # text_generation.py
 import numpy as np
-import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Activation
 from tensorflow.keras.callbacks import Callback
-from random import randint
-from tools import gpu_allow_mem_grow, show_generated_text
+from tools import gpu_allow_mem_grow, show_generated_text, sample_from_model
 
 # manage GPU memory
 gpu_allow_mem_grow()
@@ -50,30 +48,10 @@ for i, sentence in enumerate(sentences):
         x[i, j, char_to_idx[char]] = 1
     y[i, char_to_idx[next_chars[i]]] = 1
 
-
-def sample_from_model(model, sample_length=100):
-    # starting seed
-    seed = randint(0, data_size - sentence_length)
-    seed_sentence = corpus[seed: seed + sentence_length]
-    x_pred = np.zeros((1, sentence_length, vocab_size), dtype=np.bool)
-    for j, char in enumerate(seed_sentence):
-        x_pred[0, j, char_to_idx[char]] = 1
-    # generate text
-    generated_text = ''
-    for i in range(sample_length):
-        prediction = np.argmax(model.predict(x_pred))
-        generated_text += idx_to_char[prediction]
-        # remove first character from x_pred and add new character to x_pred
-        activation = np.zeros((1, 1, vocab_size), dtype=np.bool)
-        activation[0, 0, prediction] = 1
-        x_pred = np.concatenate((x_pred[:, 1:, :], activation), axis=1)
-
-    return generated_text
-
 class SamplerCallback(Callback):
     def on_epoch_end(self, epoch, logs):
         # show generated text
-        generated_text = sample_from_model(self.model)
+        generated_text = sample_from_model(self.model, 100, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
         show_generated_text(generated_text)
         # save model
         this_epoch = epoch + 1
@@ -90,6 +68,6 @@ model.compile(loss='categorical_crossentropy', optimizer='adam')
 #model.fit(x, y, epochs=20, batch_size=256, callbacks=[sampler_callback])
 model.fit(x, y, epochs=1, batch_size=256, callbacks=[sampler_callback])
 
-generated_text = sample_from_model(model, sample_length=1000)
+generated_text = sample_from_model(model, 1000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
 show_generated_text(generated_text)
 
