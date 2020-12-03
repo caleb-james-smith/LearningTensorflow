@@ -69,11 +69,11 @@ def train(num_epochs):
     model.compile(loss='categorical_crossentropy', optimizer='adam')
     model.fit(x, y, epochs=num_epochs, batch_size=256, callbacks=[sampler_callback])
     
-    generated_text = sample_from_model(model, 2000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
+    generated_text = sample_from_model(model, 1000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
     show_generated_text(generated_text)
 
 def generate(model):
-    generated_text = sample_from_model(model, 2000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
+    generated_text = sample_from_model(model, 1000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
     show_generated_text(generated_text)
 
 # --- train --- #
