@@ -72,13 +72,16 @@ def train(num_epochs):
     generated_text = sample_from_model(model, 2000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
     show_generated_text(generated_text)
 
-def generate(saved_model):
-    model = load_model(saved_model)
+def generate(model):
     generated_text = sample_from_model(model, 2000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
     show_generated_text(generated_text)
 
-train(num_epochs=30)
+# --- train --- #
+#train(num_epochs=30)
 
-#saved_model = "models/dissertation_001.h5"
-#generate(saved_model)
+# --- generate --- #
+saved_model = "models/dissertation_030.h5"
+model = load_model(saved_model)
+for i in range(10):
+    generate(model)
 
