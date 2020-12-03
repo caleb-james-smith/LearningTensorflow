@@ -18,7 +18,8 @@ with open(data_file, 'r') as in_file:
     corpus = in_file.read()
 
 # get unique characters
-chars = list(set(corpus))
+# WARNING: sort list to maintain order; a set is unordered, and the order will change during different sessions (e.g. training vs. loading models)
+chars = sorted(list(set(corpus)))
 print("chars: {0}".format(chars))
 
 data_size, vocab_size = len(corpus), len(chars)
@@ -68,16 +69,19 @@ def train(num_epochs):
     model.compile(loss='categorical_crossentropy', optimizer='adam')
     model.fit(x, y, epochs=num_epochs, batch_size=256, callbacks=[sampler_callback])
     
-    generated_text = sample_from_model(model, 2000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
+    generated_text = sample_from_model(model, 1000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
     show_generated_text(generated_text)
 
-def generate(saved_model):
-    model = load_model(saved_model)
-    generated_text = sample_from_model(model, 2000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
+def generate(model):
+    generated_text = sample_from_model(model, 1000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
     show_generated_text(generated_text)
 
-train(num_epochs=30)
+# --- train --- #
+#train(num_epochs=30)
 
-#saved_model = "models/dissertation_010.h5"
-#generate(saved_model)
+# --- generate --- #
+saved_model = "models/dissertation_030.h5"
+model = load_model(saved_model)
+for i in range(10):
+    generate(model)
 
