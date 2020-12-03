@@ -28,10 +28,10 @@ with open(data_file, 'r') as in_file:
 
 # get unique characters
 chars = list(set(corpus))
-#print(chars)
+print("chars: {0}".format(chars))
 
 data_size, vocab_size = len(corpus), len(chars)
-#print(data_size, vocab_size)
+print("data size: {0}, vocab size: {1}".format(data_size, vocab_size))
 
 idx_to_char = {i:c for i,c in enumerate(chars)}
 char_to_idx = {c:i for i,c in enumerate(chars)}
@@ -45,7 +45,7 @@ for i in range(data_size - sentence_length):
     next_chars.append(corpus[i+sentence_length])
 
 num_sentences = len(sentences)
-#print(num_sentences)
+print("num sentences: {0}".format(num_sentences))
 
 # use one-hot character encoding
 
@@ -95,7 +95,7 @@ model.add(Dense(vocab_size))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 #model.fit(x, y, epochs=20, batch_size=256, callbacks=[sampler_callback])
-model.fit(x, y, epochs=2, batch_size=256, callbacks=[sampler_callback])
+model.fit(x, y, epochs=1, batch_size=256, callbacks=[sampler_callback])
 
 generated_text = sample_from_model(model, sample_length=1000)
 show_generated_text(generated_text)
