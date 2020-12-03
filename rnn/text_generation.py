@@ -95,7 +95,7 @@ model.add(Dense(vocab_size))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 #model.fit(x, y, epochs=20, batch_size=256, callbacks=[sampler_callback])
-model.fit(x, y, epochs=1, batch_size=256, callbacks=[sampler_callback])
+model.fit(x, y, epochs=20, batch_size=256, callbacks=[sampler_callback])
 
 generated_text = sample_from_model(model, sample_length=1000)
 show_generated_text(generated_text)
