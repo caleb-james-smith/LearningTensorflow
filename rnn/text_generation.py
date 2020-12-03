@@ -1,6 +1,6 @@
 # text_generation.py
 import numpy as np
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import LSTM, Dense, Activation
 from tensorflow.keras.callbacks import Callback
 from tools import gpu_allow_mem_grow, show_generated_text, sample_from_model
@@ -58,16 +58,26 @@ class SamplerCallback(Callback):
         if (this_epoch % 5 == 0):
             self.model.save("models/{0}_{1:03d}.h5".format(model_name, this_epoch))
 
-# create model
-sampler_callback = SamplerCallback()
-model = Sequential()
-model.add(LSTM(256, input_shape=(sentence_length, vocab_size)))
-model.add(Dense(vocab_size))
-model.add(Activation('softmax'))
-model.compile(loss='categorical_crossentropy', optimizer='adam')
-#model.fit(x, y, epochs=20, batch_size=256, callbacks=[sampler_callback])
-model.fit(x, y, epochs=1, batch_size=256, callbacks=[sampler_callback])
+def train(num_epochs):
+    # train model
+    sampler_callback = SamplerCallback()
+    model = Sequential()
+    model.add(LSTM(256, input_shape=(sentence_length, vocab_size)))
+    model.add(Dense(vocab_size))
+    model.add(Activation('softmax'))
+    model.compile(loss='categorical_crossentropy', optimizer='adam')
+    model.fit(x, y, epochs=num_epochs, batch_size=256, callbacks=[sampler_callback])
+    
+    generated_text = sample_from_model(model, 1000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
+    show_generated_text(generated_text)
 
-generated_text = sample_from_model(model, 1000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
-show_generated_text(generated_text)
+def generate(saved_model):
+    model = load_model(saved_model)
+    generated_text = sample_from_model(model, 1000, corpus, data_size, sentence_length, vocab_size, char_to_idx, idx_to_char)
+    show_generated_text(generated_text)
+
+#train(num_epochs=1)
+
+saved_model = "models/dissertation_005.h5"
+generate(saved_model)
 
