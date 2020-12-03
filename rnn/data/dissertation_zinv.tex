@@ -1,0 +1,649 @@
+% Sections
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview}
+\label{sec:zinvisible-overview}
+
+An important SM background process for the all-hadronic stop analysis comes from events which have a Z boson that decays to a neutrino and an antineutrino.
+The proton-proton collisions inside CMS have unknown initial momentum in the z-axis (parallel to the beam) because interacting partons possess unknown fractions of the proton momenta.
+However, the initial momentum in the transverse direction (perpendicular to the beam) is zero, and thus the final transverse momentum should also be zero when including all final state particles (whether or not these particles can be detected and reconstructed).
+However, if only the momenta of visible particles (those which are detected and reconstructed) are summed, then it is possible for nonzero transverse momentum to arise due to invisible particles (those which are not detected or reconstructed).
+Neutrinos cannot be detected by CMS, and the production of a Z boson with transverse momentum that decays to neutrinos results in an imbalance in transverse momentum, or missing transverse energy (\met).
+In this case, the amount of \met depends on the transverse component of the momentum of the Z boson.
+The Z decay to a neutrino-antineutrino pair (of electron, muon, or tau flavor) will be referred to as the ``\zinv'' process.
+The \zinv process can produce similar signatures to SUSY models that have a weakly interacting and stable LSP.
+As shown in \cref{fig:StandardModelBackgrounds}, the \zinv background is a significant portion of the total SM background for the selections which require no top quarks or W bosons.
+
+The Z mass has been measured with very high precision to be $m_{Z} = 91.1876 \pm 0.0021$\GeV, and the full Z width is $\Gamma_{Z} = 2.4952 \pm 0.0023$\GeV~\cite{PDG2018}.
+The \zinv width including all three neutrino flavors is $\Gamma_{\nu\nu} = 499.0 \pm 1.5$\MeV~\cite{PDG2018}.
+Taking the ratio of $\Gamma_{\nu\nu}$ and $\Gamma_{Z}$ gives the branching ratio, which is the probability for a Z boson to decay to neutrinos.
+\begin{align}
+\frac{\Gamma_{\nu\nu}}{\Gamma_{Z}} = 20\%
+\end{align}
+The calculation of Z widths is presented in~\cref{appendix:DecayRates}.
+The Z boson branching ratios for the primary Z decay channels are given in \cref{tab:Zbranching}.
+
+\begin{table}
+\begin{center}
+% WARNING: label must go after caption for table reference to work correctly
+\caption[The Z boson branching ratios for ``standard'' decays]
+{
+    The Z boson branching ratios for ``standard'' decays~\cite{PDG2018}.
+    Rare Z decays and limits on unobserved decays are not included.
+}
+\label{tab:Zbranching}
+\begin{tabular}{ll}
+\hline
+Z decay mode & Branching ratio ($\Gamma_{i}/\Gamma$)\\
+\hline
+$Z \to e^{+}e^{-}$        & $\left(  3.3632 \pm 0.0042 \right)\%$\\
+$Z \to \mu^{+}\mu^{-}$    & $\left(  3.3662 \pm 0.0066 \right)\%$\\
+$Z \to \tau^{+}\tau^{-}$  & $\left(  3.3696 \pm 0.0083 \right)\%$\\
+$Z \to \nu\bar{\nu}$      & $\left( 20.000  \pm 0.055  \right)\%$\\
+$Z \to q\bar{q}$          & $\left( 69.911  \pm 0.056  \right)\%$\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Method}
+\label{sec:zinvisible-method}
+
+Because the \zinv background is a significant background for the analysis, it is beneficial to use a data-driven method to predict this background and in this way correct for any mismodeling effects present in the \znunu simulation.
+One natural control region is a dilepton control region selecting same-flavor opposite-sign charged leptons.
+When the dilepton invariant mass is near the mass of the Z boson (91 \GeV), this control region is dominated by events with a Z decaying to dileptons.
+The kinematics of events with a Z decaying to neutrinos and a Z decaying to charged leptons should be very similar; the primary difference is in the final state.
+The Z decays to electrons, muons, and taus about 10\% of the time compared to about 20\% of the time for neutrinos (\cref{tab:Zbranching}).
+The CMS detector can efficiently reconstruct electrons and muons using measurements from the tracker, calorimeters, and muon chambers.
+Taus are more difficult to reconstruct because they have a very short lifetime and decay within the CMS detector.
+For the \zinv background prediction, both dielectron and dimuon control regions are used to calculate a normalization factor.
+The dilepton control region is orthogonal to the search region (which has a lepton veto).
+Furthermore, the dilepton control region should not have significant SUSY signal contamination because the control region requires a boosted Z boson and targets the Z mass peak region.
+
+Another available control region is a single photon control region.
+The photon, like the Z boson, is a neutral vector boson that interacts with quarks and charged leptons.
+The photon does not interact with neutrinos as the Z boson does.
+However, photon and Z boson production from proton-proton collisions have similar kinematics when the Z and photon momenta are much higher than the Z mass.
+Photon production has a higher cross section than the Z boson production allowing for more events and better statistics in a photon control region.
+This analysis has many search bins and corresponding control region bins, and the uncertainty on the \zinv prediction is driven by statistics.
+To improve statistics for the data-driven \zinv prediction, a photon control region is used to estimate a shape correction factor.
+The photon control region is made orthogonal to the search region by placing the requirement $\met < 250\GeV$.
+Signal contamination is limited by selecting a boosted photon.
+
+The \zinv prediction is given by the equation
+\begin{align} % Prediction equation
+\label{eq:zinv_pred}
+\Np = \Rz \cdot \Sg \cdot \Nmc
+\end{align}
+where \Np is the predicted number of \zinv events,
+\Rz is a normalization factor obtained in a dilepton control region,
+\Sg is a shape factor obtained in a photon control region,
+and \Nmc is the weighted number of simulated \znunu MC events.
+The number of \znunu events, \Nmc, is rescaled using the \znunu cross-section and the integrated luminosity of \datalumi for the Run~2 data set.
+Additional data-driven weights are applied to \Nmc for to account for various effects such as pileup, prefire, soft b-tagging, b-tagging, top-tagging, and W-tagging.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Normalization Factor}
+\label{sec:zinvisible-normalization}
+
+Differences between the theoretical Z boson cross section and the physical cross section can cause normalization differences between simulated events and data.
+The Z to dilepton process (where the leptons are electrons or muons) is a good candidate to derive corrections for normalization differences.
+The Z to dilepton decay has as very clear signature in the CMS detector, and the Z production is the same as the Z to neutrinos case; only the decays are different.
+In the dilepton control region, the main signal process is Drell-Yan (DY), and the main background process is top quark-antiquark (\ttbar) production decaying to two charged leptons.
+Even though Z to charged leptons has as different branching ratio than Z to neutrinos (\cref{tab:Zbranching}), this factor cancels in data over MC ratios (\cref{eq:ZDataMCRatio1}).
+\begin{align}
+\label{eq:ZDataMCRatio1}
+\frac{N_{\mathrm{data}}^{\znunu}}{N_{\mathrm{MC}}^{\znunu}} = \frac{N_{\mathrm{data}}^{\zll}}{N_{\mathrm{MC}}^{\zll}}
+\end{align}
+Rearranging \cref{eq:ZDataMCRatio1} to solve for the term that the method seeks to predict, $N_{\mathrm{data}}^{\znunu}$, gives
+\begin{align}
+\label{eq:ZDataMCRatio2}
+N_{\mathrm{data}}^{\znunu} = \left(\frac{N_{\mathrm{data}}^{\zll}}{N_{\mathrm{MC}}^{\zll}}\right) N_{\mathrm{MC}}^{\znunu}.
+\end{align}
+
+In \cref{eq:ZDataMCRatio2}, the \zll data over MC ratio can be thought of as a normalization term that is applied to \znunu to correct the MC event count so that it matches the data event count for a given selection.
+However, \ttbar and other processes producing two opposite-charge leptons are present in the dilepton control region as can been seen in the dilepton~\pt~(\cref{fig:zpt}) and mass~(\cref{fig:zmass_lowdm_1,fig:zmass_lowdm_2,fig:zmass_lowdm_3,fig:zmass_highdm}) distributions.
+The \ttbar contamination is larger for the selections that require at least one b-tagged jet because top quarks decay to bottom quarks.
+The \ttbar background is addressed in a few ways:
+\begin{itemize}
+\item The dilepton~\pt cut of $\pt > 200$\GeV is applied to removed \ttbar events while keeping DY events (see \cref{fig:zpt}).
+\item Two separate normalization factors are defined: \RZ for Z processes (such as DY) and \RT for background processes (such as \ttbar).
+\end{itemize}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Electron_LowDM_bestRecoZPt_noZPtCut_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Muon_LowDM_bestRecoZPt_noZPtCut_jetpt30.pdf} \\
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Electron_HighDM_bestRecoZPt_noZPtCut_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Muon_HighDM_bestRecoZPt_noZPtCut_jetpt30.pdf} \\
+\caption[The dilepton \pt for the electron and muon control regions]
+{
+    The dilepton \pt for the electron (left column) and muon (right column) control regions.
+    The selection is low $\dm$ baseline (top row) and high $\dm$ baseline (bottom row) with the on-Z mass cut of $81<M_{ll}<101$\GeV applied.
+    Based on the dilepton \pt distributions, the cut $\pt > 200$\GeV is chosen to reduce the \ttbar background while removing very few DY events.
+}
+\label{fig:zpt}
+}
+\end{figure}
+
+The factor \Rz is extracted from the dilepton control regions, simultaneously with a similar factor \Rt that accounts for contamination from other processes such  as \ttbar, by solving the matrix equation:
+\begin{equation} % Normalization equation
+\label{eq:zinv_rz}
+\begin{bmatrix}
+N_\mathrm{on-Z}^\mathrm{Data} \\
+N_\mathrm{off-Z}^\mathrm{Data}
+\end{bmatrix}
+=
+\begin{bmatrix}
+N_\mathrm{on-Z}^{Z \to LL} & N_\mathrm{on-Z}^\mathrm{Other} \\
+N_\mathrm{off-Z}^{Z \to LL} & N_\mathrm{off-Z}^\mathrm{Other}
+\end{bmatrix}
+\begin{bmatrix}
+\Rz \\
+\Rt
+\end{bmatrix}
+\end{equation}
+where ``on-Z'' refers to the event yield within the Z mass window of $81<M_{ll}<101$\GeV
+and ``off-Z'' refers to the event yield outside of the Z mass window in the region of $50<M_{ll}<81$\GeV and $M_{ll}>101$\GeV.
+Here ``Data'' on the left side of Eq.~\ref{eq:zinv_rz} is electron or muon triggered data.
+On the right hand side of Eq.~\ref{eq:zinv_rz}, the MC is divided into the categories $Z \to LL$, which is MC with a Z decaying to charged leptons, and ``Other,'' which is other MC producing dileptons.
+The MC samples in these two categories are:
+\begin{itemize}
+\item $Z \to LL$: DYJetsToLL, TTZToLLNuNu, WZTo3LNu, WZTo2L2Q, ZZTo2L2Nu, ZZTo2L2Q, ZZTo4L, WWZ, WZZ, ZZZ, WZG
+\item Other: TTbarSingleLepT, TTbarSingleLepTbar, TTbarDiLep, ST\_s\_lep, ST\_t\_top, ST\_t\_antitop, tZq\_ll, ST\_tWll, ST\_tWnunu, ST\_tW\_top\_NoHad, ST\_tW\_antitop\_NoHad, TTZToQQ, WZTo1L3Nu, WWTo4Q, WWTo2L2Nu, WWToLNuQQ, ZZTo2Q2Nu, TTWJetsToLNu, TTWJetsToQQ, TTGJets, WWW, WWG
+\end{itemize}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Electron_LowDM_Normalization_bestRecoZM_split_50to250_NBeq0_NSVeq0_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Muon_LowDM_Normalization_bestRecoZM_split_50to250_NBeq0_NSVeq0_jetpt30.pdf} \\
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Electron_LowDM_Normalization_bestRecoZM_split_50to250_NBeq0_NSVge1_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Muon_LowDM_Normalization_bestRecoZM_split_50to250_NBeq0_NSVge1_jetpt30.pdf}
+\caption[The dilepton mass for the electron and muon control regions for Run~2 with low $\dm$ baseline applied]
+{
+    The dilepton mass for the electron (left column) and muon (right column) control regions for Run~2 with low $\dm$ baseline applied.
+    The additional selections are $\Nb=0$, $\Nsv=0$ (top row) and $\Nb=0$, $\Nsv\ge1$ (bottom row).
+    The stacked MC has the $Z \to LL$ processes on top (from DY to RareZ) and the other processes on the bottom (from \ttbar to RareNoZ).
+}
+\label{fig:zmass_lowdm_1}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Electron_LowDM_Normalization_bestRecoZM_split_50to250_NBeq1_NSVeq0_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Muon_LowDM_Normalization_bestRecoZM_split_50to250_NBeq1_NSVeq0_jetpt30.pdf} \\
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Electron_LowDM_Normalization_bestRecoZM_split_50to250_NBeq1_NSVge1_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Muon_LowDM_Normalization_bestRecoZM_split_50to250_NBeq1_NSVge1_jetpt30.pdf}
+\caption[The dilepton mass for the electron and muon control regions for Run~2 with low $\dm$ baseline applied]
+{
+    The dilepton mass for the electron (left column) and muon (right column) control regions for Run~2 with low $\dm$ baseline applied.
+    The additional selections are $\Nb=1$, $\Nsv=0$ (top row) and $\Nb=1$, $\Nsv\ge1$ (bottom row).
+    The stacked MC has the $Z \to LL$ processes on top (from DY to RareZ) and the other processes on the bottom (from \ttbar to RareNoZ).
+}
+\label{fig:zmass_lowdm_2}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Electron_LowDM_Normalization_bestRecoZM_split_50to250_NBge2_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Muon_LowDM_Normalization_bestRecoZM_split_50to250_NBge2_jetpt30.pdf}
+\caption[The dilepton mass for the electron and muon control regions for Run~2 with low $\dm$ baseline applied]
+{
+    The dilepton mass for the electron (left) and muon (right) control regions for Run~2 with low $\dm$ baseline and $\Nb\ge2$ applied.
+    The stacked MC has the $Z \to LL$ processes on top (from DY to RareZ) and the other processes on the bottom (from \ttbar to RareNoZ).
+}
+\label{fig:zmass_lowdm_3}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Electron_HighDM_Normalization_bestRecoZM_split_50to250_NBeq1_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Muon_HighDM_Normalization_bestRecoZM_split_50to250_NBeq1_jetpt30.pdf} \\
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Electron_HighDM_Normalization_bestRecoZM_split_50to250_NBge2_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Muon_HighDM_Normalization_bestRecoZM_split_50to250_NBge2_jetpt30.pdf} \\
+\caption[The dilepton mass for the electron and muon control regions for Run~2 with high $\dm$ baseline applied]
+{
+    The dilepton mass for the electron (left column) and muon (right column) control regions for Run~2 with high $\dm$ baseline applied.
+    The additional selections are $\Nb=1$ (top row) and $\Nb\ge2$ (bottom row).
+    The stacked MC has the $Z \to LL$ processes on top (from DY to RareZ) and the other processes on the bottom (from \ttbar to RareNoZ).
+}
+\label{fig:zmass_highdm}
+}
+\end{figure}
+
+To account for potential effects related to heavy flavor production, \Rz and \Rt are measured independently for different \Nb and \Nsv requirements of low \dm and high \dm regions as shown in Table \ref{tab:RZregions}.
+Figures~\ref{fig:zmass_lowdm_1}, \ref{fig:zmass_lowdm_2}, \ref{fig:zmass_lowdm_3}, and \ref{fig:zmass_highdm} show example $M_{ll}$ distributions from which the \Rz and \Rt factors are extracted.
+Some search bins have the requirement $\Nb\geq3$.
+However, there are not enough events in the dilepton control region passing $\Nb\geq3$ to provide a precise normalization value.
+For the search bins with $\Nb\geq3$, the value of \Rz obtained in the $\Nb\geq2$ region is used, which has an adequate number of events.
+Furthermore, some search bins require $\Nb=2$, and some require $\Nb\geq2$.
+In order to use statistically independent \Rz values, the \Rz value obtained with $\Nb\geq2$ is applied to the search bins with $\Nb=2$ and those with $\Nb\geq2$.
+
+Furthermore, \Rz and \Rt are calculated independently in the dielectron and dimuon channels.
+These two channels are statistically independent because for the dielectron selection, a muon veto is applied, and for the dimuon selection, an electron veto is applied.
+The values of \Rz and \Rt are obtained by inverting the matrix in Eq.~\ref{eq:zinv_rz}.
+The statistical uncertainties for \Rz and \Rt are derived by propagating the statistical uncertainties in MC and data throughout the calculation in Eq.~\ref{eq:zinv_rz}.
+The \Rz value used for the \zinv prediction is the weighted average of the dielectron normalization $\Rz^{ee}$ and the dimuon normalization $\Rz^{\mu\mu}$.
+The equation for the weighted average is
+\begin{align}
+\label{eq:weighted_avg}
+\langle x \rangle = \frac{\sum w_i x_i}{\sum w_i},
+\end{align}
+and the weights are set to $w_i = 1/\sigma_i^2$, where $\sigma_i$ are the statistical uncertainties on $\Rz^{ee}$ and $\Rz^{\mu\mu}$.
+Then the \Rz weighted average is
+\begin{align}
+\label{eq:rz_avg}
+\langle \Rz \rangle = \frac{\Rz^{ee}/\sigma_{ee}^2 + \Rz^{\mu\mu}/\sigma_{\mu\mu}^2}{1/\sigma_{ee}^2 + 1/\sigma_{\mu\mu}^2}.
+\end{align}
+Since $\Rz^{ee}$ and $\Rz^{\mu\mu}$ are statistically independent, the statistical uncertainty of the weighted average $\langle \Rz \rangle$ is obtained through applying uncorrelated uncertainty propagation in Eq.~\ref{eq:rz_avg}. The values and statistical uncertainties of $\Rz^{ee}$, $\Rz^{\mu\mu}$, $\langle \Rz \rangle$ are shown in Table \ref{tab:RZregions}.
+
+% Rz table
+\input{tables/zinv_rz_table.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Shape Factor}
+\label{sec:zinvisible-shape}
+
+The photon control region has more events and better statistics than the lepton control regions due to the large photon cross section and the small Z to dielectron and Z to dimuon branching ratios (\cref{tab:Zbranching}).
+The Z boson kinematics in the \zinv background process are comparable with photon kinematics at large momentum that is well above the mass of the Z boson.
+The photon control region is used to estimate a shape correction factor in control region bins which map to the search bins and do not bin in the number of top quarks or W bosons.
+Removing top quark and W boson binning reduces the number of control region bins and improves statistics.
+Mismodeling for top quark and W boson tagging is corrected by dedicated scale factors which are applied to the \znunu simulation.
+
+In the control region, one photon is selected with $\pt > 220$\GeV and $|\eta| < 1.4442$ or $1.5660 < |\eta| < 2.5$.
+The photon \pt cut is chosen based on the photon trigger efficiency measurement from~\cref{sec:analysis-trigger}.
+The photon $\eta$ cuts are defined such that the photon will be contained within the ECAL barrel or endcap and will not be in the gap that exists between them.
+The photon must pass the medium photon ID.
+Any hadronic jet that is matched to the photon is removed from the jet collection so that matching jets are not used to calculate analysis variables (\HT, \nj, etc.).
+Similarly to the lepton jet cleaning applied in the dilepton control region, AK4 (AK8) jets with $\Delta R < 0.2$ ($\Delta R < 0.4$) compared to a photon are considered matched.
+In addition, the selected photon is treated as \met to mimic the \znunu decay.
+The photon four-vector is added to the \met from the event, and then the transverse component of the result gives the modified \metphoton.
+The selection $\met < 250\GeV$ is placed on the original $\met$ from the event to make the photon control region orthogonal to the search region.
+
+The detector reconstructed photon (reco photon for short) selected in the single photon control region can come from various sources.
+The following photon categories are defined in order to describe the different processes that can produce reco photons passing the photon selection.
+Generator level (gen level for short) information from the simulated events is used to differentiate the photon categories.
+For gen-reco photon matching, the requirements are $\Delta R \left(\text{gen photon, reco photon}\right) < 0.1$ and $0.5 < \pt^\text{reco} / \pt^\text{gen} < 2.0$ such that a gen and reco photon are matched if they have a similar direction and momentum.
+The shorthand \DRphopar is used to represent $\Delta R\left(\text{gen photon, gen parton}\right)$.
+The photon categories are direct, fragmentation (parton-to-photon fragmentation), nonprompt (photons from hadron decays), and fake, and they are defined by the following requirements:
+\begin{itemize} % list photon categories here
+\item Direct
+\begin{itemize}
+\item gen matched to prompt status 1 gen photon
+\item $\DRphopar > 0.4$ for all prompt status 23 gen partons
+\end{itemize}
+\item Fragmentation
+\begin{itemize}
+\item gen matched to prompt status 1 gen photon
+\item $\DRphopar < 0.4$ for at least one prompt status 23 gen parton
+\end{itemize}
+\item Nonprompt
+\begin{itemize}
+\item gen matched to nonprompt status 1 gen photon
+\end{itemize}
+\item Fake
+\begin{itemize}
+\item not gen matched to any status 1 gen photon
+\end{itemize}
+\end{itemize}
+
+Both \gjets and QCD MC are considered for the photon control region.
+For the sake of efficient computing resource usage, the \MADGRAPH \gjets sample has the requirement $\DRphopar > 0.4$ on prompt generator level photons compared to all generator level hard partons.
+The QCD MC also has events with prompt-photons in this phase space.
+In order to avoid double counting in this phase space, QCD events are rejected if they have at least one generator level photon that is prompt, matched to the selected reco photon passing the photon selection, and passes the $\DRphopar > 0.4$ requirement.
+This QCD event veto is referred to as the ``QCD overlap cut.''
+For the QCD overlap cut, generated photons are selected with PDG ID 22, \PYTHIA status 1 (stable), and status flag 1 (prompt), and generated partons are selected with PDG $\pm\text{1--6}$ (quarks), 9 or 21 (gluons), \PYTHIA status 23 (outgoing from hardest subprocess), and status flag 1 (prompt).
+
+Data and simulation in the photon control region are shown as a function of \metphoton (Fig.~\ref{fig:photon_met_study}) and \HT (Fig.~\ref{fig:photon_ht_study}) with QCD separated into the various photon categories defined above.
+The effect of potential mismodeling of fragmentation, nonprompt, and fake photons can be measured.
+To do this, each of these contributions is independently varied by $\pm 50\%$ to represent a large amount of mismodeling.
+Then the shape factor is recalculated and compared to the nominal shape factor.
+The results are shown in Figs.~\ref{fig:photon_met_vary} and \ref{fig:photon_ht_vary}.
+The photon control region is dominated by \gjets events, and the fragmentation, nonprompt, and fake photons from QCD have only a small contribution to the shape factor.
+When the different QCD photon categories are varied by $\pm 50\%$, the change in the shape factor is small (1--5\%).
+Therefore no dedicated correction factors or additional uncertainties are required regarding different photon categories.
+For the shape factor used for the \znunu prediction, QCD is not separated into different photon categories.
+
+% graphs are different styles; use different widths to adjust size
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.495\linewidth]{figures/Zinvisible/DataMC_Photon_LowDM_met_split_jetpt30.pdf}
+\includegraphics[width=.495\linewidth]{figures/Zinvisible/DataMC_Photon_HighDM_met_split_jetpt30.pdf}\\
+\centering
+\includegraphics[width=.46\linewidth]{figures/Zinvisible/StudyShapes_LowDM_metWithPhoton_Run2.pdf}
+\hspace*{2ex}
+\includegraphics[width=.46\linewidth]{figures/Zinvisible/StudyShapes_HighDM_metWithPhoton_Run2.pdf}\\
+\caption[Modified \metphoton distributions in the photon control region with low $\dm$ and high $\dm$ baseline selections applied and the QCD simulation separated by photon category]
+{
+    Modified \metphoton distributions in the photon control region with low $\dm$ (left) and high $\dm$ (right) baseline selections applied and the QCD simulation separated by photon category.
+    In the data simulation comparisons (top), the data and the total MC stack are normalized to unit area.
+    The shape comparisons (bottom) have each distribution normalized to unit area.
+}
+\label{fig:photon_met_study}
+}
+\end{figure}
+
+% graphs are different styles; use different widths to adjust size
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.495\linewidth]{figures/Zinvisible/DataMC_Photon_HighDM_ht_split_jetpt30.pdf}\\
+\centering
+\hspace*{1ex}
+\includegraphics[width=.46\linewidth]{figures/Zinvisible/StudyShapes_HighDM_HT_drPhotonCleaned_jetpt30_Run2.pdf}\\
+\caption[\HT distributions in the photon control region with the high $\dm$ baseline selection applied and the QCD simulation separated by photon category]
+{
+    \HT distributions in the photon control region with the high $\dm$ baseline selection applied and the QCD simulation separated by photon category.
+    In the data simulation comparison (top), the data and the total MC stack are normalized to unit area.
+    The shape comparison (bottom) has each distribution normalized to unit area.
+}
+\label{fig:photon_ht_study}
+}
+\end{figure}
+
+% vary QCD components and compare shapes
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.38\linewidth]{figures/Zinvisible/VaryShapes_LowDM_metWithPhoton_QCD_Fragmentation_Run2.pdf}
+\includegraphics[width=.38\linewidth]{figures/Zinvisible/VaryShapes_HighDM_metWithPhoton_QCD_Fragmentation_Run2.pdf}\\
+\includegraphics[width=.38\linewidth]{figures/Zinvisible/VaryShapes_LowDM_metWithPhoton_QCD_NonPrompt_Run2.pdf}
+\includegraphics[width=.38\linewidth]{figures/Zinvisible/VaryShapes_HighDM_metWithPhoton_QCD_NonPrompt_Run2.pdf}\\
+\includegraphics[width=.38\linewidth]{figures/Zinvisible/VaryShapes_LowDM_metWithPhoton_QCD_Fake_Run2.pdf}
+\includegraphics[width=.38\linewidth]{figures/Zinvisible/VaryShapes_HighDM_metWithPhoton_QCD_Fake_Run2.pdf}
+\caption[Modified \metphoton shape distributions in the photon control region with low $\dm$ and high $\dm$ baseline selections applied]
+{
+    Modified \metphoton shape (data over simulation) distributions in the photon control region with low $\dm$ (left) and high $\dm$ (right) baseline selections applied.
+    The nominal shape factor is compared to shape factors recalculated after QCD components are varied by $\pm 50\%$.
+    In addition, the ratios between the varied shape factors and the nominal shape factor are shown.
+    This is done for fragmentation photons (top two rows), nonprompt photons (middle two rows), and fake photons (bottom two rows).
+}
+\label{fig:photon_met_vary}
+}
+\end{figure}
+
+% vary QCD components and compare shapes
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/VaryShapes_HighDM_HT_drPhotonCleaned_jetpt30_QCD_Fragmentation_Run2.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/VaryShapes_HighDM_HT_drPhotonCleaned_jetpt30_QCD_NonPrompt_Run2.pdf}\\
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/VaryShapes_HighDM_HT_drPhotonCleaned_jetpt30_QCD_Fake_Run2.pdf}
+\caption[\HT shape distributions in the photon control region with the high $\dm$ baseline selection applied]
+{
+    \HT shape (data over simulation) distributions in the photon control region with the high $\dm$ baseline selection applied.
+    The nominal shape factor is compared to shape factors recalculated after QCD components are varied by $\pm 50\%$.
+    In addition, the ratios between the varied shape factors and the nominal shape factor are shown.
+    This is done for fragmentation photons (top left), nonprompt photons (top right), and fake photons (bottom).
+}
+\label{fig:photon_ht_vary}
+}
+\end{figure}
+
+%%% --- shape factor equations --- %%%
+% low dm photon CR variables (6): Nj, Nb, Nsv, ISR_pt, ptb, MET
+% high dm photon CR variables (5): Nj, Nb, mtb, HT, MET
+
+The shape factors $\Sg^{\mathrm{low}}$ and $\Sg^{\mathrm{high}}$ for low \dm and high \dm regions are defined by
+\begin{align}
+\label{eq:shape_lowdm}
+\Sg^{\mathrm{low}}\left(\Nj, \Nb, \Nsv, \ptisr, \ptb, \metphoton\right) &= \frac{N^{\mathrm{data}}\left(\Nj, \Nb, \Nsv, \ptisr, \ptb, \metphoton\right)}{Q \cdot N^{\mathrm{MC}}\left(\Nj, \Nb, \Nsv, \ptisr, \ptb, \metphoton\right)} \\
+\label{eq:shape_highdm}
+\Sg^{\mathrm{high}}\left(\Nj, \Nb, \mtb, \HT, \metphoton\right) &= \frac{N^{\mathrm{data}}\left(\Nj, \Nb, \mtb, \HT, \metphoton\right)}{Q \cdot N^{\mathrm{MC}}\left(\Nj, \Nb, \mtb, \HT, \metphoton\right)}
+\end{align}
+where $Q$ is a data/MC normalization term as a function of $\Nb$ and $\Nj$ given by
+\begin{align}
+\label{eq:shape_q}
+Q\left(\Nb, \Nj\right) = \frac{N^{\mathrm{data}}\left(\Nb, \Nj\right)}{N^{\mathrm{MC}}\left(\Nb, \Nj\right)}.
+\end{align}
+There is an implied integration over search bin variables not listed in Eqs.~(\ref{eq:shape_lowdm}),~(\ref{eq:shape_highdm}), and~(\ref{eq:shape_q}); for example the number of top quarks and W bosons are integrated over when calculating $\Sg^{\mathrm{high}}$.
+The shape factor used for the final predictions is calculated in control region bins that have no top quark or W boson requirements in high $\dm$ to increase the number of events per control region bin and improve statistical precision.
+Dedicated data-driven top quark and W boson tagging scale factors are applied to the \znunu simulation to correct for top quark and W boson related mismodeling.
+
+Figures~\ref{fig:photon_met_lowdm_1},~\ref{fig:photon_met_lowdm_2} and~\ref{fig:photon_met_highdm} show some examples of data and simulation comparison as a function of \metphoton with low $\dm$ and high $\dm$ baseline selections, as well as different \Nb and \Nj requirements.
+There is a clear trend in the data over simulation ratio for certain selections as seen in Fig.~\ref{fig:photon_met_lowdm_1}.
+The shape factor rectifies this disagreement between data and simulation by applying the data over simulation ratios from the control region to the search region.
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Photon_LowDM_met_NBeq0_NJle5_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Photon_LowDM_met_NBeq0_NJge6_jetpt30.pdf}\\
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Photon_LowDM_met_NBeq1_jetpt30.pdf}
+\caption[The modified \metphoton for the photon control region for Run~2 with low $\dm$ baseline applied]
+{
+    The modified \metphoton for the photon control region for Run~2 with low $\dm$ baseline applied.
+    The additional selections are $\Nb=0, \Nj\leq5$ (top left), $\Nb=0, \Nj\geq6$ (top right), and $\Nb=1$ (bottom).
+    Both data and total MC are normalized to unit area in order to compare the shapes of the data and MC \metphoton distributions.
+}
+\label{fig:photon_met_lowdm_1}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Photon_LowDM_met_NBge2_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Photon_LowDM_met_NBge2_NJge7_jetpt30.pdf}
+\caption[The modified \metphoton for the photon control region for Run~2 with low $\dm$ baseline applied]
+{
+    The modified \metphoton for the photon control region for Run~2 with low $\dm$ baseline applied.
+    The additional selections are $\Nb\geq2$ (left) and $\Nb\geq2, \Nj\geq7$ (right).
+    Both data and total MC are normalized to unit area in order to compare the shapes of the data and MC \metphoton distributions.
+}
+\label{fig:photon_met_lowdm_2}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Photon_HighDM_met_NBeq1_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Photon_HighDM_met_NBeq1_NJge7_jetpt30.pdf}\\
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Photon_HighDM_met_NBge2_jetpt30.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataMC_Photon_HighDM_met_NBge2_NJge7_jetpt30.pdf}\\
+\caption[The modified \metphoton for the photon control region for Run~2 with high $\dm$ baseline applied]
+{
+    The modified \metphoton for the photon control region for Run~2 with high $\dm$ baseline applied.
+    The additional selections are $\Nb=1$ (top row), $\Nb\geq2$ (bottom row), and $\Nj\geq7$ (right column).
+    Both data and total MC are normalized to unit area in order to compare the shapes of the data and MC \metphoton distributions.
+}
+\label{fig:photon_met_highdm}
+}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Combining Eras}
+\label{sec:zinvisible-combining}
+
+The CMS Run~2 data set used for this analysis includes three years of data-taking, 2016, 2017, and 2018, and each year will also be referred to as an era or run period.
+For the \zinv background prediction, the normalization and shape factors in different eras are examined to determine if there are any important differences that need to be accounted for.
+The era dependence of measured \Rz values is shown in~\cref{fig:norm_eras_lowdm_1,fig:norm_eras_lowdm_2,fig:norm_eras_highdm}.
+The \Rz factor is generally stable over different run periods, so the \Rz factor from the full Run~2 data period is used for the background prediction.
+For some regions where the measurement has small statistical uncertainties (\eg low \dm, $\Nb=0$, and $\Nsv=0$),
+variations of \Rz are larger than statistical fluctuations, and additional systematic uncertainties are assigned to cover the variations (\cref{sec:zinvisible-uncertainties}).
+
+The era dependence of measured \Sg distributions is shown in~\cref{fig:shape_eras_lowdm_1,fig:shape_eras_lowdm_2,fig:shape_eras_highdm}.
+The distributions are generally stable over different run periods, so a set of \Sg shape correction factors from the full Run~2 data period is used for the background prediction.
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Normalization_search_LowDM_NBeq0_NSVeq0.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Normalization_search_LowDM_NBeq0_NSVge1.pdf}
+\caption[Normalization factors, \Rz, for different Run~2 years for events passing low \dm baseline]
+{
+    Normalization factors, \Rz, for different Run~2 years for events passing low \dm baseline.
+    The additional requirements are $\Nb = 0$, as well as $\Nsv = 0$ (left) and $\Nsv \geq 1$ (right).
+}
+\label{fig:norm_eras_lowdm_1}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Normalization_search_LowDM_NBeq1_NSVeq0.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Normalization_search_LowDM_NBeq1_NSVge1.pdf}\\
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Normalization_search_LowDM_NBge2.pdf}
+\caption[Normalization factors, \Rz, for different Run~2 years for events passing low \dm baseline]
+{
+    Normalization factors, \Rz, for different Run~2 years for events passing low \dm baseline.
+    The additional requirements are $\Nb = 1$ and $\Nsv = 0$ (top left), $\Nb = 1$ and $\Nsv \geq 1$ (top right), and $\Nb \geq 2$ (bottom).
+}
+\label{fig:norm_eras_lowdm_2}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Normalization_search_HighDM_NBeq1.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Normalization_search_HighDM_NBge2.pdf}
+\caption[Normalization factors, \Rz, for different Run~2 years for events passing high \dm baseline]
+{
+    Normalization factors, \Rz, for different Run~2 years for events passing high \dm baseline.
+    The additional requirements are $\Nb = 1$ (left) and $\Nb \geq 2$ (right).
+}
+\label{fig:norm_eras_highdm}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Shape_search_LowDM_NBeq0_NJle5_rebin1.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Shape_search_LowDM_NBeq0_NJge6_rebin1.pdf}\\
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Shape_search_LowDM_NBeq1_rebin1.pdf}
+\caption[Shape factors, \Sg, for different Run~2 eras for events passing the low \dm baseline and with different \Nb and \Nj selections]
+{
+    Shape factors, \Sg, for different Run~2 eras for events passing the low \dm baseline and with different \Nb and \Nj selections.
+}
+\label{fig:shape_eras_lowdm_1}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Shape_search_LowDM_NBge2_rebin1.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Shape_search_LowDM_NBge2_NJge7_rebin1.pdf}
+\caption[Shape factors, \Sg, for different Run~2 eras for events passing the low \dm baseline and with different \Nb and \Nj selections]
+{
+    Shape factors, \Sg, for different Run~2 eras for events passing the low \dm baseline and with different \Nb and \Nj selections.
+}
+\label{fig:shape_eras_lowdm_2}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Shape_search_HighDM_NBeq1_rebin1.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Shape_search_HighDM_NBeq1_NJge7_rebin1.pdf}\\
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Shape_search_HighDM_NBge2_rebin1.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/Shape_search_HighDM_NBge2_NJge7_rebin1.pdf}
+\caption[Shape factors, \Sg, for different Run~2 eras for events passing the high \dm baseline selection and with different \Nb and \Nj selections]
+{
+    Shape factors, \Sg, for different Run~2 eras for events passing the high \dm baseline selection and with different \Nb and \Nj selections.
+}
+\label{fig:shape_eras_highdm}
+}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Uncertainties}
+\label{sec:zinvisible-uncertainties}
+
+Several sources of uncertainty are considered in the estimation of the \znunu background including
+the statistical uncertainties in the photon control region data (up to 100\%) and simulated event samples (up to 110\%),
+the photon identification efficiencies (5--13\%),
+the photon trigger efficiency (up to 2\%),
+the pileup reweighting (up to 40\%),
+the jet energy scale corrections (up to 41\%),
+the \ptmiss energy resolution (up to 35\%),
+the PDF uncertainty (up to 59\%),
+the \PQb tagging efficiencies for heavy-flavor jets (up to 5\%) and misidentification rates for light jets (up to 16\%),
+the soft-\PQb tagging efficiencies (up to 1\%), and
+the top quark and \PW boson misidentification rates (up to 34\%).
+In addition, two more sources of systematic uncertainty for the \znunu prediction are described below.
+
+First, an additional systematic uncertainty is applied to the normalization factor, \Rz, to cover differences seen between different run eras which are not covered by the statistical uncertainties of the factor as seen in~\cref{fig:norm_eras_lowdm_1,fig:norm_eras_lowdm_2,fig:norm_eras_highdm}.
+The central value of \Rz is derived by summing the three eras discussed in \cref{sec:zinvisible-combining}.
+The additional uncertainty is then estimated by taking the $S=\chi^2/\text{NDOF}$ between the central value and the three individual eras and scaling the statistical uncertainty on the central value by $\sqrt{S}$.
+This method is based on the approach described in Sec.~5.2.2 of Ref.~\cite{PDG2018}.
+The \RZ normalization factor uncertainties are 4--14\% and are propagated to the \znunu prediction in the search regions.
+
+The second additional \znunu systematic is designed to cover any residual differences between the modeling of \zjets events and \gjets events.
+This systematic is derived by looking at the double ratio between data and simulation in the dilepton control region and photon control region as a function of \ptmiss, shown in Fig.~\ref{fig:z_vs_photon_met}.
+In order to make the best use of the low statistics in the dilepton control region, the inclusive low \dm and high \dm selections are used for this comparison.
+Any deviation from unity is considered to be due to modeling differences between the \zjets and \gjets processes in the control regions.
+The larger of either the absolute deviation of the ratio from unity or the statistical uncertainty (up to 16\%) is assigned as a systematic uncertainty for the \znunu prediction as a function of modified \ptmiss.
+
+% Z vs. Photon double ratio as a function of MET (used for systematic)
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataOverData_met_LowDM_rebinned_Run2.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/DataOverData_met_HighDM_rebinned_Run2.pdf}
+\caption[A comparison of the modified \met distributions for the low \dm and high \dm lepton and photon control regions]
+{
+    A comparison of the modified \met distributions for the low \dm (left) and high \dm (right) lepton and photon control regions.
+    For each control region, the simulation is normalized such that the simulation has the same number of events as data.
+    The modified \met includes the four-vector of the reconstructed Z or photon for the respective control region to mimic the Z to neutrinos decay.
+    The upper panel shows the ratio of Z and photon data (black points) and the ratio of Z and photon simulation (blue histogram).
+    The bottom panel shows the ratio of the two distributions in the upper panel, the data ratio divided by the simulation ratio.
+}
+\label{fig:z_vs_photon_met}
+}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+\label{sec:zinvisible-results}
+
+The \zinv predictions for Run~2 are shown in the validation bins (Fig. \ref{fig:zinv_validation}) and search bins (Fig. \ref{fig:zinv_search}).
+The normalization factor \Rz, shape factor \Sg, number of \znunu simulation (MC) events \Nmc, and the background prediction \Np including statistical uncertainties are provided for each search bin in~\cref{tab:zinvPredBins0to27,tab:zinvPredBins28to52,tab:zinvPredBins53to80,tab:zinvPredBins81to107,tab:zinvPredBins108to136,tab:zinvPredBins137to161,tab:zinvPredBins162to182} in~\cref{appendix:ZInvisiblePredictions}.
+The uncertainty for the prediction \Np is calculated by propagating the statistical uncertainties of \Rz, \Sg, and \Nmc through the calculation in~\cref{eq:zinv_pred}.
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/validation_lowdm_Run2.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/validation_highdm_Run2.pdf}
+\caption[The \znunu simulation and \zinv prediction in the low \dm and high \dm validation bins for Run~2]
+{
+    The \znunu simulation and \zinv prediction in the low \dm (left) and high \dm (right) validation bins for Run~2.
+    The \znunu simulation has various weights applied to account for effects such as pileup, prefire, soft b-tagging, b-tagging, top-tagging, and W-tagging.
+    For the \zinv prediction, the \Rz and \Sg factors have been multiplied with the \znunu simulation as prescribed by \cref{eq:zinv_pred}.
+    Additionally, the lower plots have the ratio $\Np/\Nmc$, which shows the cumulative effect of \Rz and \Sg on the prediction for each validation bin.
+}
+\label{fig:zinv_validation}
+}
+\end{figure}
+
+\begin{figure}[tbp]
+{
+\centering
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/search_lowdm_Run2.pdf}
+\includegraphics[width=.49\linewidth]{figures/Zinvisible/search_highdm_Run2.pdf}
+\caption[The \znunu simulation and \zinv prediction in the low \dm and high \dm search bins for Run~2]
+{
+    The \znunu simulation and \zinv prediction in the low \dm (left) and high \dm (right) search bins for Run~2.
+    The \znunu simulation has various weights applied to account for effects such as pileup, prefire, soft b-tagging, b-tagging, top-tagging, and W-tagging.
+    For the \zinv prediction, the \Rz and \Sg factors have been multiplied with the \znunu simulation as prescribed by \cref{eq:zinv_pred}.
+    Additionally, the lower plots have the ratio $\Np/\Nmc$, which shows the cumulative effect of \Rz and \Sg on the prediction for each search bin.
+}
+\label{fig:zinv_search}
+}
+\end{figure}
