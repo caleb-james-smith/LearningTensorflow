@@ -57,8 +57,8 @@ class QLearningAgent(object):
         self.q_table[state][action] += self.learning_rate * (q_hat - self.q_table[state][action])
     
     def train(self):
-        show = False
-        num_iters = 200
+        show = True
+        num_iters = 100
         for episode in range(self.num_episodes):
             iteration = episode + 1
             if show and iteration % num_iters == 0:
