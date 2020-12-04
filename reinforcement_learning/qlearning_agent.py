@@ -9,7 +9,6 @@ class QLearningAgent(object):
     # min explore rate: min rate of exploration (trying new things) reached at end of training
     # decay rate: rate of decrease in exploration rate
     # discount: rewards decrease over time (over more actions), incentivizes reaching the goal quickly (in fewest actions)
-    # discount: 0.1 or 1.0?  
     def __init__(self, num_bins=10, num_episodes=1000, learning_rate=0.10, min_explore=0.05, discount=1.0, decay=50):
         # enviroment contains state
         # 1D: state has car position and velocity
