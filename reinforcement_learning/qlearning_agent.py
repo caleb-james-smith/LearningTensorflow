@@ -10,8 +10,13 @@ class QLearningAgent(object):
     # discount: rewards decrease over time (over more actions), incentivizes reaching the goal quickly (in fewest actions)
     # decay rate: rate of decrease in exploration rate
     def __init__(self, num_bins=10, num_episodes=1000, learning_rate=0.10, min_explore=0.05, discount=1.0, decay=50):
-        # enviroment contains state
+        # ------------------------------------------------------------ #
+        # Mountain Car
         # 1D: state has car position and velocity
+        # goal: move car to the top of the hill
+        # allowed car actions: move left, move right, and no movement
+        # ------------------------------------------------------------ #
+        # note: enviroment contains state
         self.env            = gym.make('MountainCar-v0')
         self.num_bins       = num_bins
         self.num_episodes   = num_episodes
