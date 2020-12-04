@@ -14,7 +14,10 @@ class QLearningAgent(object):
         # Mountain Car
         # 1D: state has car position and velocity
         # goal: move car to the top of the hill
-        # allowed car actions: move left, move right, and no movement
+        # allowed car actions: push left, no push, and push right
+        # ------------------------------------------------------------ #
+        # https://gym.openai.com/envs/MountainCar-v0
+        # https://github.com/openai/gym/wiki/MountainCar-v0
         # ------------------------------------------------------------ #
         # note: enviroment contains state
         self.env            = gym.make('MountainCar-v0')
