@@ -129,7 +129,9 @@ class DQN(object):
 
     def run(self, num_episodes):
         self.model          = load_model("models-2/{0}_{1:05d}.h5".format(self.model_name, num_episodes))
-        self.explore_rate   = self.min_explore
+        # testing 
+        #self.explore_rate   = self.min_explore
+        self.explore_rate   = 0.50
         
         while True:
             # start and run game
