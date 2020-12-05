@@ -123,12 +123,12 @@ class DQN(object):
             
             self.replay()
             self.update_target_model()
-            print("Episode {0:04}/{1:04}".format(this_episode, self.num_episodes))
+            print("Episode {0:05}/{1:05}".format(this_episode, self.num_episodes))
             if this_episode % 1000 == 0:
-                self.model.save("models/{0}_{1:04d}.h5".format(self.model_name, this_episode))
+                self.model.save("models/{0}_{1:05d}.h5".format(self.model_name, this_episode))
 
     def run(self):
-        self.model          = load_model("models/{0}_{1:04d}.h5".format(self.model_name, self.num_episodes))
+        self.model          = load_model("models/{0}_{1:05d}.h5".format(self.model_name, self.num_episodes))
         self.explore_rate   = self.min_explore
         
         while True:
