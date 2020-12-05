@@ -127,8 +127,8 @@ class DQN(object):
             if this_episode % 200 == 0:
                 self.model.save("models/{0}_{1:04d}.h5".format(self.model_name, this_episode))
 
-    def run(self):
-        self.model          = load_model("models/{0}_{1:04d}.h5".format(self.model_name, self.num_episodes))
+    def run(self, num_episodes):
+        self.model          = load_model("models/{0}_{1:04d}.h5".format(self.model_name, num_episodes))
         self.explore_rate   = self.min_explore
         
         while True:
@@ -148,5 +148,5 @@ class DQN(object):
 if __name__ == "__main__":
     agent = DQN(num_episodes=1000, num_steps=200)
     #agent.train()
-    agent.run()
+    agent.run(num_episodes=1000)
 
