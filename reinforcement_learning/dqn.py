@@ -15,7 +15,7 @@ class DQN(object):
     # discount: rewards decrease over time (over more actions), incentivizes reaching the goal quickly (in fewest actions)
     # batch size: size of batch
     # decay rate: rate of decrease in exploration rate
-    def __init__(self, num_episodes=500, num_steps=200, min_explore=0.01, learning_rate=0.001, discount=0.95, batch_size=32, decay=0.995):
+    def __init__(self, num_episodes=500, num_steps=200, min_explore=0.05, learning_rate=0.10, discount=1.0, batch_size=32, decay=0.02):
         # ------------------------------------------------------------ #
         # Breakout
         # 2D: state is an image showing background, bricks, ball, and platform
@@ -124,7 +124,7 @@ class DQN(object):
             self.replay()
             self.update_target_model()
             print("Episode {0:04}/{1:04}".format(this_episode, self.num_episodes))
-            if this_episode % 200 == 0:
+            if this_episode % 1000 == 0:
                 self.model.save("models/{0}_{1:04d}.h5".format(self.model_name, this_episode))
 
     def run(self):
@@ -146,7 +146,7 @@ class DQN(object):
                 current_state = new_state
 
 if __name__ == "__main__":
-    agent = DQN(num_episodes=1000, num_steps=200)
+    agent = DQN(num_episodes=10000, num_steps=200)
     agent.train()
     #agent.run()
 
