@@ -130,19 +130,23 @@ class DQN(object):
     def run(self):
         self.model          = load_model("models/{0}_{1:04d}.h5".format(self.model_name, self.num_episodes))
         self.explore_rate   = self.min_explore
-        current_state       = self.env.reset()
-        current_state       = self._preprocess(current_state)
         
-        done = False
-        while not done:
-            self.env.render()
-            action = self.choose_action(current_state)
-            new_state, reward, done, _ = self.env.step(action)
-            new_state = self._preprocess(new_state)
-            current_state = new_state
+        while True:
+            # start and run game
+            # initial state
+            current_state       = self.env.reset()
+            current_state       = self._preprocess(current_state)
+            
+            done = False
+            while not done:
+                self.env.render()
+                action = self.choose_action(current_state)
+                new_state, reward, done, _ = self.env.step(action)
+                new_state = self._preprocess(new_state)
+                current_state = new_state
 
 if __name__ == "__main__":
-    agent = DQN(num_episodes=10)
-    agent.train()
+    agent = DQN(num_episodes=10, num_steps=10)
+    #agent.train()
     agent.run()
 
