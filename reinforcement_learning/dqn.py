@@ -128,10 +128,10 @@ class DQN(object):
                 self.model.save("models/{0}_{1:05d}.h5".format(self.model_name, this_episode))
 
     def run(self, num_episodes):
-        self.model          = load_model("models-2/{0}_{1:05d}.h5".format(self.model_name, num_episodes))
+        self.model          = load_model("models/{0}_{1:05d}.h5".format(self.model_name, num_episodes))
         # testing 
-        #self.explore_rate   = self.min_explore
-        self.explore_rate   = 0.30
+        #self.explore_rate   = 0.30
+        self.explore_rate   = self.min_explore
         
         while True:
             # start and run game
@@ -150,5 +150,5 @@ class DQN(object):
 if __name__ == "__main__":
     agent = DQN(num_episodes=1000, num_steps=200)
     #agent.train()
-    agent.run(num_episodes=10000)
+    agent.run(num_episodes=1000)
 
