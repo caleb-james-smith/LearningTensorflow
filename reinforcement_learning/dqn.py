@@ -147,6 +147,6 @@ class DQN(object):
 
 if __name__ == "__main__":
     agent = DQN(num_episodes=200, num_steps=200)
-    agent.train()
-    #agent.run()
+    #agent.train()
+    agent.run()
 
