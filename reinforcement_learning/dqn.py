@@ -124,8 +124,8 @@ class DQN(object):
             self.replay()
             self.update_target_model()
             print("Episode {0:02}/{1}".format(this_episode, self.num_episodes))
-            if this_episode % 100 == 0:
-                self.model.save("models/{0}_{1:04d}.h5".format(self.model_name, this_epoch))
+            if this_episode % 5 == 0:
+                self.model.save("models/{0}_{1:04d}.h5".format(self.model_name, this_episode))
 
     def run(self):
         self.model          = load_model("models/{0}_{1:04d}.h5".format(self.model_name, self.num_episodes))
@@ -142,7 +142,7 @@ class DQN(object):
             current_state = new_state
 
 if __name__ == "__main__":
-    agent = DQN(num_episodes=100)
+    agent = DQN(num_episodes=10)
     agent.train()
     agent.run()
 
