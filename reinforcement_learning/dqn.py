@@ -15,7 +15,7 @@ class DQN(object):
     # discount: rewards decrease over time (over more actions), incentivizes reaching the goal quickly (in fewest actions)
     # batch size: size of batch
     # decay rate: rate of decrease in exploration rate
-    def __init__(self, num_episodes=500, num_steps=200, min_explore=0.05, learning_rate=0.10, discount=1.0, batch_size=32, decay=0.02):
+    def __init__(self, num_episodes=500, num_steps=200, min_explore=0.30, learning_rate=0.10, discount=1.0, batch_size=32, decay=0.001):
         # ------------------------------------------------------------ #
         # Breakout
         # 2D: state is an image showing background, bricks, ball, and platform
@@ -131,7 +131,7 @@ class DQN(object):
         self.model          = load_model("models-2/{0}_{1:05d}.h5".format(self.model_name, num_episodes))
         # testing 
         #self.explore_rate   = self.min_explore
-        self.explore_rate   = 0.50
+        self.explore_rate   = 0.30
         
         while True:
             # start and run game
